@@ -4,11 +4,8 @@ the purpose of the Game is to create a text adventure where a player passes a so
 
 # METHODS
 
-
-## IsGameWon
- checks if game is won
-## IsGameLost
-checks if game is lost 
+## Name and position
+this collects a user input for which position they want to play in the game and their name. For example if they are StupidDaniel and their positon is goalie then when the program reaches goalie room then program will return StupidDaniel has the ball.
 ## Room 1
 will provide 3 or four options where the player can pass ball
 ## Room 2
