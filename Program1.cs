@@ -5,7 +5,7 @@ namespace Austin_Ransford_Personal_Project_1
     class Program
     {
 
-        static void Main()
+        static void Main12()
         {
 
             bool isGameWon = false;
@@ -23,19 +23,19 @@ namespace Austin_Ransford_Personal_Project_1
                 if (difficulty == "Easy")
                 {
                     turns = 12;
-                    Console.WriteLine("You chose the hard difficulty");
+                    Console.WriteLine("You chose the hard difficulty. you get 9 turns to");
                     return turns;
                 }
                 if (difficulty == "Medium")
                 {
                     turns = 9;
-                    Console.WriteLine("You chose the hard difficulty");
+                    Console.WriteLine("You chose the hard difficulty. You get 9 turns to score");
                     return turns;
                 }
                 if (difficulty == "Hard")
                 {
                     turns = 7;
-                    Console.WriteLine("You chose the hard difficulty");
+                    Console.WriteLine("You chose the hard difficulty. You get 7 turns to score");
                     return turns;
                 }
                 else
