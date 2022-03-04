@@ -34,6 +34,8 @@ namespace AustinRansfordSoloproject2
          }
          Console.WriteLine($"the probaility returned {randomNumber}");
 
+        // TODO(jcollard 2022-03-04): The code you've written actually throws an exception if the value is less than 0.
+        // Should this be a try / catch (exception) test?
          Console.WriteLine("enter a value under 0 this should always to return a false value");
         testprobabilitystr = Console.ReadLine();
         testprobability = int.Parse(testprobabilitystr);
@@ -47,7 +49,7 @@ namespace AustinRansfordSoloproject2
 
 
 
-
+        
 
      }
 
