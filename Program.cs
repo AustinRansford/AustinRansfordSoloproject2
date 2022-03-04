@@ -12,7 +12,8 @@ namespace AustinRansfordSoloproject2
             if (args.Length > 0 && args[0] == "test")
             {
                  probabilitytest.RunTest();
-          Console.WriteLine($" Test GetPositiveInteger(Options): {testGetPositiveInt}");
+                 // TODO(jcollard 2022-03-04): There is no variable called "testGetPositiveInt"
+        //   Console.WriteLine($" Test GetPositiveInteger(Options): {testGetPositiveInt}");
             }
 
             Room currentRoom = new Room();
@@ -41,6 +42,9 @@ namespace AustinRansfordSoloproject2
             // if input string == Hard set turns to 7
             // if input ! == Easy Medium Hard prompt user read the response and restart the method 
             int turns;
+            // Feedback(jcollard 2022-03-04): If you change this to
+            // if (difficulty.ToLower().Trim() == "easy")
+            // You will be able to accept inputs like "easy", "EASY", and "   eaSy   "
             if (difficulty == "Easy")
             {
                 turns = 1;
@@ -61,7 +65,10 @@ namespace AustinRansfordSoloproject2
             }
             else
             {
-
+                // Feedback(jcollard 2022-03-04): This loop is superfluous, the
+                // call to `DifficultyReader` inside will exit the loop. The
+                // "loop" you have here is actually coming from simply calling
+                // `DifficultyReader`.
                 while (!difficulty.Equals("Easy") && !difficulty.Equals("Medium") && !difficulty.Equals("Easy"))
                 {
                     Console.WriteLine("Error you did dont input a game difficulty\nEnter a game difficulty: 'Easy', 'Medium' 'Hard'");
