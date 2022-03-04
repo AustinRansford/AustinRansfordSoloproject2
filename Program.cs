@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AustinRansfordSoloproject2
 {
@@ -11,8 +12,9 @@ namespace AustinRansfordSoloproject2
 
             if (args.Length > 0 && args[0] == "test")
             {
-                 probabilitytest.RunTest();
-          Console.WriteLine($" Test GetPositiveInteger(Options): {testGetPositiveInt}");
+                 bool probabilitytestBool = probabilitytest.RunTest();
+          Console.WriteLine($" Test GetPositiveInteger(Options): {probabilitytestBool}");
+
             }
 
             Room currentRoom = new Room();
@@ -82,7 +84,31 @@ namespace AustinRansfordSoloproject2
         {
             if (probability < 0)
             {
-                throw new Exception("The chance to succed can not be negative.");
+                throw new Exception("The chance to succeed can not be negative.");
+            }
+            else
+            {
+                Random Generator = new Random();
+                int chance = Generator.Next(0, 100);
+                while (chance > 100 | chance <= 0)
+                {
+                    chance = Generator.Next(0, 100);
+                }
+                if (chance <= probability)
+                {
+                    return true;
+                }
+                else return false;
+
+            }
+
+        }
+
+        public static sting ProbabilityMachine57(int probability)
+        {
+            if (probability < 0)
+            {
+                throw new Exception("The chance to succeed can not be negative.");
             }
             else
             {
