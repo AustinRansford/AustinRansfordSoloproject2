@@ -5,7 +5,7 @@ namespace AustinRansfordSoloproject2
 {
     class Program
     {
-        public List<string> PassingPath;
+        public static List<string> PassingPath = new List<string>() ;
 
 
         static void Main(string[] args)
@@ -13,23 +13,21 @@ namespace AustinRansfordSoloproject2
 
             if (args.Length > 0 && args[0] == "test")
             {
-                 bool probabilitytestBool = probabilitytest.RunTest();
-          Console.WriteLine($" Test ProbabilityMachine(Options): {probabilitytestBool}");
-          return;
+                bool probabilitytestBool = probabilitytest.RunTest();
+                Console.WriteLine($" Test ProbabilityMachine(Options): {probabilitytestBool}");
+                return;
 
             }
 
             Room currentRoom = new Room();
             currentRoom.description = "Some text here";
 
-            bool isGameWon = false;
-            bool isGamelost = false;
+           
 
             Console.WriteLine(" Chose difficulty 'Easy', 'Medium', 'Hard'");
             string difficulty = Console.ReadLine();
             int turnsleft = DifficultyReader(difficulty);
-            Console.WriteLine($"Your adventure starts now.\n You are playing a soccer game and need to score a goal in {turnsleft - 1} passes or less.");
-            GoalKickRoom(turnsleft);
+            Console.WriteLine($"Your adventure starts now.\n You are playing a soccer game and need to score a goal in {turnsleft-1} passes or less.");            GoalKickRoom(turnsleft);
         }
 
 
@@ -50,7 +48,7 @@ namespace AustinRansfordSoloproject2
             // You will be able to accept inputs like "easy", "EASY", and "   eaSy   "
             if (difficulty.ToLower().Trim() == "easy")
             {
-                turns = 1;
+                turns = 12;
                 Console.WriteLine("You chose the Easy difficulty");
                 return turns;
             }
@@ -66,22 +64,22 @@ namespace AustinRansfordSoloproject2
                 Console.WriteLine("You chose the Hard difficulty");
                 return turns;
             }
-           
-        
-                // Feedback(jcollard 2022-03-04): This loop is superfluous, the
-                // call to `DifficultyReader` inside will exit the loop. The
-                // "loop" you have here is actually coming from simply calling
-                // `DifficultyReader`.
-            else
-             {
-                    Console.WriteLine("Error you did dont input a game difficulty\nEnter a game difficulty: 'Easy', 'Medium' 'Hard'");
-                    string Hardness = Console.ReadLine();
-                    return DifficultyReader(Hardness);
-             }
-                
 
-        
-           
+
+            // Feedback(jcollard 2022-03-04): This loop is superfluous, the
+            // call to `DifficultyReader` inside will exit the loop. The
+            // "loop" you have here is actually coming from simply calling
+            // `DifficultyReader`.
+            else
+            {
+                Console.WriteLine("Error you did dont input a game difficulty\nEnter a game difficulty: 'Easy', 'Medium' 'Hard'");
+                string Hardness = Console.ReadLine();
+                return DifficultyReader(Hardness);
+            }
+
+
+
+
         }
 
         /// <summary>
@@ -114,72 +112,72 @@ namespace AustinRansfordSoloproject2
         }
 
 
-        
+
         /// <summary>
         /// This is the first room in my word adventure 
         /// </summary>
         /// <param name="turnsleft"> How many 'passes' you can make with before scoring, if == 0 game ends</param>
         /// <returns></returns>
-        private void GoalKickRoom(int turnsleft)
+        public static string GoalKickRoom(int turnsleft)
         {
             if (turnsleft == 0)
             {
-                GameLost();
+                return GameLost();
             }
             Console.WriteLine("\n You have the ball on a goal kick will you pass 'Right', 'Left', or 'Center'");
             string input = Console.ReadLine();
-            if (input == "Right")
+            if (input.ToLower().Trim() == "right")
             {
                 Console.WriteLine(" You passed the ball right and the Midfeild recieved the ball.");
                 turnsleft = turnsleft - 1;
-                this.PassingPath.Add("Goal Kick");
-                MidFeildKickRoom(turnsleft);
+                PassingPath.Add("Goal Kick");
+               return MidFeildKickRoom(turnsleft);
 
             }
-            if (input == "Center")
+            if (input.ToLower().Trim() == "center")
             {
                 Console.WriteLine("Before you pass the ball to the Center you should know that there is a low probablity of a successfully passing the ball\nto your teamate without losing possession of the ball.\nThere is a 55% success rate.\n \n Will you still attempt to pass it to the center?\n'Yes' or 'No'");
                 string input2 = Console.ReadLine();
-                if (input2 == "Yes")
+                if (input2.ToLower().Trim() == "yes")
                 {
                     turnsleft = turnsleft - 1;
                     bool success = ProbabilityMachine(55);
-                    
-                
+
+
                     if (success == true)
                     {
                         Console.WriteLine("You successfully made the pass to the midfeild");
-                        this.PassingPath.Add("Goal Kick");
+                        PassingPath.Add("Goal Kick");
 
-                        MidFeildKickRoom(turnsleft);
+                        return MidFeildKickRoom(turnsleft);
 
                     }
                     if (success == false)
                     {
-                        turnsleft = 0;
+
                         Console.WriteLine("You lost the ball in the midfeild. The Counter attack is over.");
-                        this.PassingPath.Add("Goal Kick");
-                        GoalKickRoom(turnsleft);
+                        PassingPath.Add("Goal Kick");
+                        return GameLost();
                     }
-                    
+
 
 
                 }
-                if (input2 == "No")
+                if (input2.ToLower().Trim() == "no")
                 {
-                    GoalKickRoom(turnsleft);
+                    return GoalKickRoom(turnsleft);
                 }
 
 
             }
-            if (input == "Left")
+            if (input.ToLower().Trim() == "left")
             {
                 Console.WriteLine("You passed the Ball left successfully and your midfeild now has the ball");
                 turnsleft = turnsleft - 1;
 
-                this.PassingPath.Add("Goal Kick");
-                MidFeildKickRoom(turnsleft);
-            // maybe if time allows add a quick left mid position. 
+                PassingPath.Add("Goal Kick");
+               return  MidFeildKickRoom(turnsleft);
+                // maybe if time allows add a quick left mid position. 
 
 
 
@@ -187,172 +185,218 @@ namespace AustinRansfordSoloproject2
             else
             {
                 Console.WriteLine("error you did not input the a possible passing direction");
-                GoalKickRoom(turnsleft);
+                return GoalKickRoom(turnsleft);
 
             }
 
 
 
         }
-        public void MidFeildKickRoom(int turnsleft)
+        public static string MidFeildKickRoom(int turnsleft)
         {
             if (turnsleft == 0)
             {
-                GameLost();
+                return GameLost();
             }
-            Console.WriteLine("\n You have the ball in the mid feild. The there are four guys in the center and right of the feild. will you pass 'Right', 'Left', or 'Center'?");
+            Console.WriteLine("\n You have the ball in the mid feild. The there are four guys in the center and right of the feild. will you pass 'Right', 'Left', 'Back' or 'Center'?");
             string input = Console.ReadLine();
 
-            if (input == "Right")
+            if (input.ToLower().Trim() == "right")
             {
                 Console.WriteLine("You passed the ball to the right and it was immediately intercepted");
                 turnsleft = turnsleft - 1;
-                this.PassingPath.Add("Midfeild");
-                 GameLost();
+                PassingPath.Add("Midfeild");
+                return GameLost();
 
             }
-            if (input == "Center")
+            if (input.ToLower().Trim() == "center")
             {
                 Console.WriteLine("You passed the ball to the Center and barely spilt the defenders.");
                 turnsleft = turnsleft - 1;
-                this.PassingPath.Add("Midfeild");
-                CenterAttackingMid(turnsleft);
+                PassingPath.Add("Midfeild");
+                return CenterAttackingMid(turnsleft);
 
             }
-            if (input == "Left")
+            if (input.ToLower().Trim() == "left")
             {
-                Console.WriteLine("");
+                Console.WriteLine("You passed the ball to the left. \n the Left Midfeilder who recieved the ball Immediately passed the ball to the center attacking mid.\n ");
+                turnsleft = turnsleft - 2;
+                PassingPath.Add("Midfeild");
+                PassingPath.Add("Left Mid");
+                return CenterAttackingMid(turnsleft);
+
+
+            }
+            if (input.ToLower().Trim() == "back")
+            {
+                Console.WriteLine("You passed the ball back to your center defensive mid who can kick super far!");
                 turnsleft = turnsleft - 1;
-                this.PassingPath.Add("Midfeild");
+                PassingPath.Add("Midfeild");
+                return CDM(turnsleft);
 
 
             }
             else
             {
                 Console.WriteLine("You did not input the a valid passing direction");
-                MidFeildKickRoom(turnsleft);
+                return MidFeildKickRoom(turnsleft);
 
             }
 
 
 
         }
-        static void CenterAttackingMid(int turnsleft)
+        public static string CenterAttackingMid(int turnsleft)
         {
             if (turnsleft == 0)
             {
-                 GameLost();
+                return GameLost();
             }
 
-            Console.WriteLine("\n You have the ball on a goal kick will you pass 'Right', 'Left', or 'Center'");
+            Console.WriteLine("\n You have the ball on a goal kick will you pass to your players 'feet' or play a 'through' ball. '");
             string input = Console.ReadLine();
 
-            if (input == "Right")
+            if (input.ToLower().Trim() == "feet")
             {
-                Console.WriteLine("");
-                turnsleft = turnsleft - 1;
+                Console.WriteLine(" You played to the strikers feet. His only choie left is to drible. This action takes two turns");
+                turnsleft = turnsleft - 2;
+                PassingPath.Add("Center Attacking Mid");
+                PassingPath.Add("Striker dribbling");
+                return Finalthird(turnsleft);
 
             }
-            if (input == "Center")
+            if (input.ToLower().Trim() == "through ball")
             {
-                Console.WriteLine("Before you pass the ball to the Center you should know that there is a low probablity of a successfully passing the ball\nto your teamate without losing possession of the ball.\nThere is a 55% success rate.");
+                Console.WriteLine("you played a beautiful ");
                 turnsleft = turnsleft - 1;
-
-            }
-            if (input == "Left")
-            {
-                Console.WriteLine("");
-                turnsleft = turnsleft - 1;
+                PassingPath.Add("Center Attacking Mid");
+                return Finalthird(turnsleft);
 
 
             }
             else
             {
                 Console.WriteLine("error you did not input the a possible passing direction");
-                GoalKickRoom(turnsleft);
+                return CenterAttackingMid(turnsleft);
 
             }
 
 
         }
-        static void KickRoom2(int turnsleft)
+        public static string CDM(int turnsleft)
         {
             if (turnsleft == 0)
             {
-                 GameLost();
+                return GameLost();
             }
-            Console.WriteLine("\n You have the ball on a goal kick will you pass 'Right', 'Left', or 'Center'");
+            Console.WriteLine("\n You have passed the ball back to the center defensive mid will you pass the ball 'over' the top or forward to the mid feild. \n there is a 90% chance of the pass over. ");
             string input = Console.ReadLine();
 
-            if (input == "Right")
+            if (input.ToLower().Trim() == "over" | input.ToLower().Trim() == "over the top")
             {
-                Console.WriteLine("");
                 turnsleft = turnsleft - 1;
+                Console.WriteLine("You have passed the ball over the top. Will the ball be intercepted?");
+                bool Intercepted = ProbabilityMachine(90);
+                if (Intercepted)
+                {
+                    Console.WriteLine("The ball has fallen to your player in front of the goal!!!\nGet ready to SCORE!");
+                    PassingPath.Add("Center defensive Mid");
+                    return Finalthird(turnsleft);
+                }
+                if (Intercepted == false ){
+                    Console.WriteLine("The defense has intercepted the ball");
+                    return GameLost();
+                }
+
+
 
             }
-            if (input == "Center")
+            if (input.ToLower().Trim() == "foward")
             {
-                Console.WriteLine("Before you pass the ball to the Center you should know that there is a low probablity of a successfully passing the ball\nto your teamate without losing possession of the ball.\nThere is a 55% success rate.");
+                Console.WriteLine("You passed the ball to the midfeild once again");
                 turnsleft = turnsleft - 1;
+                PassingPath.Add("Center defensive Mid");
+               return  MidFeildKickRoom(turnsleft);
 
             }
-            if (input == "Left")
+
+            else
             {
-                Console.WriteLine("");
-                turnsleft = turnsleft - 1;
+                Console.WriteLine("error you did not input the a possible passing direction");
+                 return CDM(turnsleft);
+
+            }
+
+
+        }
+        public static string Finalthird(int turnsleft)
+        {
+            if (turnsleft == 0)
+            {
+                return GameLost();
+            }
+            Console.WriteLine("\n You have the ball in front of the opposing goal will you shoot 'Right', 'Left', or 'Center'");
+            string input = Console.ReadLine();
+
+            if (input.ToLower().Trim() == "right")
+            {
+                PassingPath.Add("Striker");
+                Console.WriteLine("You turn your hips to thr right and line up the shot\n ...\n ...\n... \nYOU SCORED!");
+                return GameWon();
+            }
+            if (input.ToLower().Trim() == "center")
+            {
+                PassingPath.Add("Striker");
+                Console.WriteLine("Before you Shoot the ball to the Center\n ...\n ...\n... \nThe Goalie saved the Ball\n the counter attack is over .");
+                return GameLost();
+
+            }
+            if (input.ToLower().Trim() == "left")
+            {
+                PassingPath.Add("Striker");
+                Console.WriteLine("You turn your hips to the left and line up the shot\n ...\n ...\n... \nYOU SCORED!");
+                return GameWon();
 
 
             }
             else
             {
                 Console.WriteLine("error you did not input the a possible passing direction");
-                GoalKickRoom(turnsleft);
+                return Finalthird(turnsleft);
 
             }
 
 
         }
-        static void KickRoom3(int turnsleft)
+
+        public static string GameLost()
         {
-            if (turnsleft == 0)
-            {
-                 GameLost();
-            }
-            Console.WriteLine("\n You have the ball in the goal will you pass 'Right', 'Left', or 'Center'");
-            string input = Console.ReadLine();
-
-            if (input == "Right")
-            {
-                Console.WriteLine("");
-                turnsleft = turnsleft - 1;
-
-            }
-            if (input == "Center")
-            {
-                Console.WriteLine("Before you pass the ball to the Center you should know that there is a low probablity of a successfully passing the ball\nto your teamate without losing possession of the ball.\nThere is a 55% success rate.");
-                turnsleft = turnsleft - 1;
-
-            }
-            if (input == "Left")
-            {
-                Console.WriteLine("");
-                turnsleft = turnsleft - 1;
-
-
-            }
-            else
-            {
-                Console.WriteLine("error you did not input the a possible passing direction");
-                GoalKickRoom(turnsleft);
-
-            }
-
-
-        }
-
-        static void GameLost(){
             Console.WriteLine("You took too long to score a goal on the counter attack, and the ball got stolen. \nGame over.");
-            return;
+            string locationlist = string.Empty;
+            foreach (string places in PassingPath)
+            {
+
+                locationlist = locationlist + places +", ";
+
+            }
+            int turnsUsed = PassingPath.Count;
+             Console.WriteLine($"You used {turnsUsed} turns. \nThis is your passing path. {locationlist}");
+            return ($"This is your passing path. {locationlist}");
+        }
+        public static string  GameWon()
+        {
+            Console.WriteLine("YOU WON!!!\n You scored a goal on the counter attack.");
+            string locationlist = string.Empty;
+            foreach (string places in PassingPath)
+            {
+
+                locationlist = locationlist + places +", ";
+
+            }
+            int turnsUsed = PassingPath.Count;
+        Console.WriteLine($"You used {turnsUsed} turns. \nThis is your passing path. {locationlist}");
+            return ($"This is you passing path. {locationlist}");
+           
         }
 
 
