@@ -5,6 +5,7 @@ namespace AustinRansfordSoloproject2
 {
     class Program
     {
+        public List<string> PassingPath;
 
 
         static void Main(string[] args)
@@ -14,6 +15,7 @@ namespace AustinRansfordSoloproject2
             {
                  bool probabilitytestBool = probabilitytest.RunTest();
           Console.WriteLine($" Test ProbabilityMachine(Options): {probabilitytestBool}");
+          return;
 
             }
 
@@ -46,39 +48,40 @@ namespace AustinRansfordSoloproject2
             // Feedback(jcollard 2022-03-04): If you change this to
             // if (difficulty.ToLower().Trim() == "easy")
             // You will be able to accept inputs like "easy", "EASY", and "   eaSy   "
-            if (difficulty == "Easy")
+            if (difficulty.ToLower().Trim() == "easy")
             {
                 turns = 1;
                 Console.WriteLine("You chose the Easy difficulty");
                 return turns;
             }
-            if (difficulty == "Medium")
+            if (difficulty.ToLower().Trim() == "medium")
             {
                 turns = 9;
                 Console.WriteLine("You chose the Medium difficulty");
                 return turns;
             }
-            if (difficulty == "Hard")
+            if (difficulty.ToLower().Trim() == "hard")
             {
                 turns = 7;
                 Console.WriteLine("You chose the Hard difficulty");
                 return turns;
             }
-            else
-            {
+           
+        
                 // Feedback(jcollard 2022-03-04): This loop is superfluous, the
                 // call to `DifficultyReader` inside will exit the loop. The
                 // "loop" you have here is actually coming from simply calling
                 // `DifficultyReader`.
-                while (!difficulty.Equals("Easy") && !difficulty.Equals("Medium") && !difficulty.Equals("Easy"))
-                {
+            else
+             {
                     Console.WriteLine("Error you did dont input a game difficulty\nEnter a game difficulty: 'Easy', 'Medium' 'Hard'");
                     string Hardness = Console.ReadLine();
                     return DifficultyReader(Hardness);
-                }
+             }
+                
 
-            }
-            return 0;
+        
+           
         }
 
         /// <summary>
@@ -110,46 +113,27 @@ namespace AustinRansfordSoloproject2
 
         }
 
-        public static sting ProbabilityMachine57(int probability)
-        {
-            if (probability < 0)
-            {
-                throw new Exception("The chance to succeed can not be negative.");
-            }
-            else
-            {
-                Random Generator = new Random();
-                int chance = Generator.Next(0, 100);
-                while (chance > 100 | chance <= 0)
-                {
-                    chance = Generator.Next(0, 100);
-                }
-                if (chance <= probability)
-                {
-                    return true;
-                }
-                else return false;
 
-            }
-
-        }
+        
         /// <summary>
         /// This is the first room in my word adventure 
         /// </summary>
         /// <param name="turnsleft"> How many 'passes' you can make with before scoring, if == 0 game ends</param>
         /// <returns></returns>
-        static void GoalKickRoom(int turnsleft)
+        private void GoalKickRoom(int turnsleft)
         {
             if (turnsleft == 0)
             {
-                throw new Exception("You took too long to score a goal on the counter attack, and the ball got stolen. \nGame over.");
+                GameLost();
             }
             Console.WriteLine("\n You have the ball on a goal kick will you pass 'Right', 'Left', or 'Center'");
             string input = Console.ReadLine();
             if (input == "Right")
             {
-                Console.WriteLine("");
+                Console.WriteLine(" You passed the ball right and the Midfeild recieved the ball.");
                 turnsleft = turnsleft - 1;
+                this.PassingPath.Add("Goal Kick");
+                MidFeildKickRoom(turnsleft);
 
             }
             if (input == "Center")
@@ -160,26 +144,24 @@ namespace AustinRansfordSoloproject2
                 {
                     turnsleft = turnsleft - 1;
                     bool success = ProbabilityMachine(55);
-                    bool retrevial = ProbabilityMachine(30);
+                    
+                
                     if (success == true)
                     {
                         Console.WriteLine("You successfully made the pass to the midfeild");
+                        this.PassingPath.Add("Goal Kick");
 
                         MidFeildKickRoom(turnsleft);
 
                     }
-                    if (success == false && retrevial == false)
+                    if (success == false)
                     {
                         turnsleft = 0;
                         Console.WriteLine("You lost the ball in the midfeild. The Counter attack is over.");
+                        this.PassingPath.Add("Goal Kick");
                         GoalKickRoom(turnsleft);
                     }
-                    else
-                    {
-                        Console.WriteLine("The pass was unsuccessful but you won the ball back.");
-                        GoalKickRoom(turnsleft);
-
-                    }
+                    
 
 
                 }
@@ -192,8 +174,13 @@ namespace AustinRansfordSoloproject2
             }
             if (input == "Left")
             {
-                Console.WriteLine("");
+                Console.WriteLine("You passed the Ball left successfully and your midfeild now has the ball");
                 turnsleft = turnsleft - 1;
+
+                this.PassingPath.Add("Goal Kick");
+                MidFeildKickRoom(turnsleft);
+            // maybe if time allows add a quick left mid position. 
+
 
 
             }
@@ -207,50 +194,56 @@ namespace AustinRansfordSoloproject2
 
 
         }
-        static void MidFeildKickRoom(int turnsleft)
+        public void MidFeildKickRoom(int turnsleft)
         {
             if (turnsleft == 0)
             {
-                throw new Exception("You took too long to score a goal on the counter attack, and the ball got stolen. \nGame over.");
+                GameLost();
             }
             Console.WriteLine("\n You have the ball in the mid feild. The there are four guys in the center and right of the feild. will you pass 'Right', 'Left', or 'Center'?");
             string input = Console.ReadLine();
 
             if (input == "Right")
             {
-                Console.WriteLine("");
+                Console.WriteLine("You passed the ball to the right and it was immediately intercepted");
                 turnsleft = turnsleft - 1;
+                this.PassingPath.Add("Midfeild");
+                 GameLost();
 
             }
             if (input == "Center")
             {
-                Console.WriteLine("Before you pass the ball to the Center you should know that there is a low probablity of a successfully passing the ball\nto your teamate without losing possession of the ball.\nThere is a 55% success rate.");
+                Console.WriteLine("You passed the ball to the Center and barely spilt the defenders.");
                 turnsleft = turnsleft - 1;
+                this.PassingPath.Add("Midfeild");
+                CenterAttackingMid(turnsleft);
 
             }
             if (input == "Left")
             {
                 Console.WriteLine("");
                 turnsleft = turnsleft - 1;
+                this.PassingPath.Add("Midfeild");
 
 
             }
             else
             {
                 Console.WriteLine("You did not input the a valid passing direction");
-                GoalKickRoom(turnsleft);
+                MidFeildKickRoom(turnsleft);
 
             }
 
 
 
         }
-        static void KickRoom(int turnsleft)
+        static void CenterAttackingMid(int turnsleft)
         {
             if (turnsleft == 0)
             {
-                throw new Exception("You took too long to score a goal on the counter attack, and the ball got stolen. \nGame over.");
+                 GameLost();
             }
+
             Console.WriteLine("\n You have the ball on a goal kick will you pass 'Right', 'Left', or 'Center'");
             string input = Console.ReadLine();
 
@@ -286,7 +279,7 @@ namespace AustinRansfordSoloproject2
         {
             if (turnsleft == 0)
             {
-                throw new Exception("You took too long to score a goal on the counter attack, and the ball got stolen. \nGame over.");
+                 GameLost();
             }
             Console.WriteLine("\n You have the ball on a goal kick will you pass 'Right', 'Left', or 'Center'");
             string input = Console.ReadLine();
@@ -323,7 +316,7 @@ namespace AustinRansfordSoloproject2
         {
             if (turnsleft == 0)
             {
-                throw new Exception("You took too long to score a goal on the counter attack, and the ball got stolen. \nGame over.");
+                 GameLost();
             }
             Console.WriteLine("\n You have the ball in the goal will you pass 'Right', 'Left', or 'Center'");
             string input = Console.ReadLine();
@@ -357,9 +350,13 @@ namespace AustinRansfordSoloproject2
 
         }
 
-
+        static void GameLost(){
+            Console.WriteLine("You took too long to score a goal on the counter attack, and the ball got stolen. \nGame over.");
+            return;
+        }
 
 
 
     }
+
 }
