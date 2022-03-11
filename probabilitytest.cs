@@ -11,14 +11,14 @@ namespace AustinRansfordSoloproject2
          int testprobability;
         string testprobabilitystr = Console.ReadLine();
         testprobability = int.Parse(testprobabilitystr);
-         bool randomNumber = Program.ProbabilityMachine(testprobability);
+         bool randomNumber = Program.ProbabilityMachine(testprobability, 100);
          while (randomNumber != true )
          {
              Console.WriteLine($"the probaility returned {randomNumber}");
              Console.WriteLine("enter a value between 1-100 this should be able to return a true or a false value ");
              testprobabilitystr = Console.ReadLine();
         testprobability = int.Parse(testprobabilitystr);
-         randomNumber = Program.ProbabilityMachine(testprobability);
+         randomNumber = Program.ProbabilityMachine(testprobability, 100);
 
          }
          Console.WriteLine($"the probaility returned {randomNumber}");
@@ -27,7 +27,7 @@ namespace AustinRansfordSoloproject2
        
          testprobabilitystr = Console.ReadLine();
         testprobability = int.Parse(testprobabilitystr);
-         randomNumber = Program.ProbabilityMachine(testprobability);
+         randomNumber = Program.ProbabilityMachine(testprobability, 100);
          if (randomNumber != true )
          {
              return false;
@@ -41,13 +41,13 @@ namespace AustinRansfordSoloproject2
         testprobability = int.Parse(testprobabilitystr);
          try 
          {
-             randomNumber = Program.ProbabilityMachine(testprobability);
+             randomNumber = Program.ProbabilityMachine(testprobability, 100);
 
          
          Console.WriteLine($"the probaility failed by returning a nonerror message");
          return false;
          }
-         catch (Exception e)
+         catch (Exception)
          {
          Console.WriteLine("The program successfully returned a error message.");
          }
