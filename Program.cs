@@ -27,7 +27,8 @@ namespace AustinRansfordSoloproject2
             Console.WriteLine(" Chose difficulty 'Easy', 'Medium', 'Hard'");
             string difficulty = Console.ReadLine();
             int turnsleft = DifficultyReader(difficulty);
-            Console.WriteLine($"Your adventure starts now.\n You are playing a soccer game and need to score a goal in {turnsleft-1} passes or less.");            GoalKickRoom(turnsleft);
+            Console.WriteLine($"Your adventure starts now.\n You are playing a soccer game and need to score a goal in {turnsleft} passes or less.");          
+          GoalKickRoom(turnsleft);
         }
 
 
@@ -48,19 +49,19 @@ namespace AustinRansfordSoloproject2
             // You will be able to accept inputs like "easy", "EASY", and "   eaSy   "
             if (difficulty.ToLower().Trim() == "easy")
             {
-                turns = 12;
+                turns = 7;
                 Console.WriteLine("You chose the Easy difficulty");
                 return turns;
             }
             if (difficulty.ToLower().Trim() == "medium")
             {
-                turns = 9;
+                turns = 5;
                 Console.WriteLine("You chose the Medium difficulty");
                 return turns;
             }
             if (difficulty.ToLower().Trim() == "hard")
             {
-                turns = 7;
+                turns = 4;
                 Console.WriteLine("You chose the Hard difficulty");
                 return turns;
             }
@@ -198,7 +199,7 @@ namespace AustinRansfordSoloproject2
             {
                 return GameLost();
             }
-            Console.WriteLine("\n You have the ball in the mid feild. The there are four guys in the center and right of the feild. will you pass 'Right', 'Left', 'Back' or 'Center'?");
+            Console.WriteLine($"\n You have the ball in the mid feild. The there are four guys in the center and right of the feild. will you pass 'Right', 'Left', 'Back' or 'Center'? \nYou have {turnsleft} turnsleft");
             string input = Console.ReadLine();
 
             if (input.ToLower().Trim() == "right")
@@ -219,7 +220,7 @@ namespace AustinRansfordSoloproject2
             }
             if (input.ToLower().Trim() == "left")
             {
-                Console.WriteLine("You passed the ball to the left. \n the Left Midfeilder who recieved the ball Immediately passed the ball to the center attacking mid.\n ");
+                Console.WriteLine("You passed the ball to the left. \n the Left Midfeilder who recieved the ball Immediately passed the ball to the center attacking mid.\n This action took 2 turns. ");
                 turnsleft = turnsleft - 2;
                 PassingPath.Add("Midfeild");
                 PassingPath.Add("Left Mid");
@@ -253,10 +254,10 @@ namespace AustinRansfordSoloproject2
                 return GameLost();
             }
 
-            Console.WriteLine("\n You have the ball on a goal kick will you pass to your players 'feet' or play a 'through' ball. '");
+            Console.WriteLine($"\n You have the ball in the center attacking midfeild will you pass to your players 'feet' or play a 'through' ball. \nYou have {turnsleft} turnsleft");
             string input = Console.ReadLine();
 
-            if (input.ToLower().Trim() == "feet")
+            if (input.ToLower().Trim() == "feet" && turnsleft > 1)
             {
                 Console.WriteLine(" You played to the strikers feet. His only choie left is to drible. This action takes two turns");
                 turnsleft = turnsleft - 2;
@@ -265,9 +266,14 @@ namespace AustinRansfordSoloproject2
                 return Finalthird(turnsleft);
 
             }
-            if (input.ToLower().Trim() == "through ball")
+            if (input.ToLower().Trim() == "feet" && turnsleft <= 1)
             {
-                Console.WriteLine("you played a beautiful ");
+                Console.WriteLine("Your striker recieved the ball and was forced to dribble in to the final third, BUT since you took too long to get the ball to your striker.\n The defense recooperated and stole the ball back.");
+                return GameLost();
+            }
+            if (input.ToLower().Trim() == "through")
+            {
+                Console.WriteLine("you played a beautiful through ball that pushed you all the way to the final third.");
                 turnsleft = turnsleft - 1;
                 PassingPath.Add("Center Attacking Mid");
                 return Finalthird(turnsleft);
@@ -289,7 +295,7 @@ namespace AustinRansfordSoloproject2
             {
                 return GameLost();
             }
-            Console.WriteLine("\n You have passed the ball back to the center defensive mid will you pass the ball 'over' the top or forward to the mid feild. \n there is a 90% chance of the pass over. ");
+            Console.WriteLine($"\n You have passed the ball back to the center defensive mid will you pass the ball 'over' the top or forward to the mid feild. \n there is a 90% chance of the pass over. \nYou have {turnsleft} turnsleft ");
             string input = Console.ReadLine();
 
             if (input.ToLower().Trim() == "over" | input.ToLower().Trim() == "over the top")
@@ -335,7 +341,7 @@ namespace AustinRansfordSoloproject2
             {
                 return GameLost();
             }
-            Console.WriteLine("\n You have the ball in front of the opposing goal will you shoot 'Right', 'Left', or 'Center'");
+            Console.WriteLine($"\n You have the ball in front of the opposing goal will you shoot 'Right', 'Left', or 'Center' \nYou have {turnsleft} turns left.");
             string input = Console.ReadLine();
 
             if (input.ToLower().Trim() == "right")
