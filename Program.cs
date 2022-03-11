@@ -88,7 +88,7 @@ namespace AustinRansfordSoloproject2
         /// </summary>
         /// <param name="probability"> The probabilty for something to return true</param>
         /// <returns> a true of false value </returns>
-        public static bool ProbabilityMachine(int probability)
+        public static bool ProbabilityMachine(int probability, int max)
         {
             if (probability < 0)
             {
@@ -97,10 +97,10 @@ namespace AustinRansfordSoloproject2
             else
             {
                 Random Generator = new Random();
-                int chance = Generator.Next(0, 100);
-                while (chance > 100 | chance <= 0)
+                int chance = Generator.Next(0, max);
+                while (chance > 100 || chance <= 0)
                 {
-                    chance = Generator.Next(0, 100);
+                    chance = Generator.Next(0, max);
                 }
                 if (chance <= probability)
                 {
@@ -142,7 +142,7 @@ namespace AustinRansfordSoloproject2
                 if (input2.ToLower().Trim() == "yes")
                 {
                     turnsleft = turnsleft - 1;
-                    bool success = ProbabilityMachine(55);
+                    bool success = ProbabilityMachine(55, 100);
 
 
                     if (success == true)
@@ -298,11 +298,11 @@ namespace AustinRansfordSoloproject2
             Console.WriteLine($"\n You have passed the ball back to the center defensive mid will you pass the ball 'over' the top or forward to the mid feild. \n there is a 90% chance of the pass over. \nYou have {turnsleft} turnsleft ");
             string input = Console.ReadLine();
 
-            if (input.ToLower().Trim() == "over" | input.ToLower().Trim() == "over the top")
+            if (input.ToLower().Trim() == "over" || input.ToLower().Trim() == "over the top")
             {
                 turnsleft = turnsleft - 1;
                 Console.WriteLine("You have passed the ball over the top. Will the ball be intercepted?");
-                bool Intercepted = ProbabilityMachine(90);
+                bool Intercepted = ProbabilityMachine(90, 100);
                 if (Intercepted)
                 {
                     Console.WriteLine("The ball has fallen to your player in front of the goal!!!\nGet ready to SCORE!");

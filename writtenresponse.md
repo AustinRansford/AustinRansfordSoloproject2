@@ -19,13 +19,14 @@ Describes the overall purpose of the program.
 Describes what functionality of the program is demonstrated in the video.
 
 **TODO: Complete this section**
-The video demonstrates that the player can input one of three difficulties, this difficulty will determine how many turns the player has to "score a goal". The program then enters the goalkick method which gives possible paths. everytime a player enters a path the amount of turns left is decreased by 1 or two. 
+The video demonstrates that the player can input one of three difficulties, this difficulty will determine how many turns the player has to "score a goal". The program then enters the goalkick method which gives possible paths. Everytime a player enters a path the amount of turns left is decreased by 1 or two, if turnsleft ever reach 0 the program will terminate. These paths return anoter method that will continue the game or terminate it.  The player can navigate these methods untill turns left reaches zero or you score a Goal and the game is won. 
 
 ### 3a iii.
 
 Describes the input and output of the program demonstrated in the video.
 
 **TODO: Complete this section**
+User can input a 1 of three difficulties. This difficulty will determine the amount of turns the user has. Then the program runs the goal kick method where they can chose 1 of 3 directions to pass the ball. This choice will move them to another method with multiple input options, and will reduce the amount of turns left by 1 or sometimes 2. This repeats untill a goal is scored or turnsleft reaches 0.
 
 ## 3b
 
@@ -74,6 +75,7 @@ written differently, if you did not use the list.
 
 **TODO: Explain why it would be very difficult (or impossible) to write 
 the program without using the list.**
+this list manages the complexity because it is impossible to determine the path of the player through the program. so, I would have to use a bool variable for each possible input, which would, at the end of the program, return a string that corralates to that bool variable. Since, players can enter the same input mutiple times I would have to make a # of bool variable equal to the # of times the player makes that input. Since, I cant determine that number it would be impossible. 
 
 ## 3c.
 
@@ -90,7 +92,29 @@ The first program code segment must be a student-developed procedure that:
 - [ ] Implements an algorithm that includes sequencing, selection, and iteration
 
 ```csharp
-// TODO: Select a method that meets all of the requirements.
+ public static bool ProbabilityMachine(int probability, int max)
+        {
+            if (probability < 0)
+            {
+                throw new Exception("The chance to succeed can not be negative.");
+            }
+            else
+            {
+                Random Generator = new Random();
+                int chance = Generator.Next(0, max);
+                while (chance > 100 || chance <= 0)
+                {
+                    chance = Generator.Next(0, max);
+                }
+                if (chance <= probability)
+                {
+                    return true;
+                }
+                else return false;
+
+            }
+
+        }
 ```
 
 ### 3c ii.
@@ -98,7 +122,31 @@ The first program code segment must be a student-developed procedure that:
 The second program code segment must show where your student-developed procedure is being called in your program.
 
 ```csharp
-// TODO: Add code showing where the procedure is being called
+ if (input2.ToLower().Trim() == "yes")
+                {
+                    turnsleft = turnsleft - 1;
+                    bool success = ProbabilityMachine(55, 100);
+
+
+                    if (success == true)
+                    {
+                        Console.WriteLine("You successfully made the pass to the midfeild");
+                        PassingPath.Add("Goal Kick");
+
+                        return MidFeildKickRoom(turnsleft);
+
+                    }
+                    if (success == false)
+                    {
+
+                        Console.WriteLine("You lost the ball in the midfeild. The Counter attack is over.");
+                        PassingPath.Add("Goal Kick");
+                        return GameLost();
+                    }
+
+
+
+                }
 ```
 
 ### 3c iii.
@@ -106,12 +154,15 @@ The second program code segment must show where your student-developed procedure
 Describes in general what the identified procedure does and how it contributes to the overall functionality of the program.
 
 **TODO: Explain at a high level what this method does and when it is called**
+The procedure takes 2 intger values: max and probability. The method generates a int value between 0 and max. If that generated number is less than or equal to the probability variable. the method returns true. Else the method returns false
 
 ### 3c iv.
 
 Explains in detailed steps how the algorithm implemented in the identified procedure works. Your explanation must be detailed enough for someone else to recreate it.
 
 **TODO: In English, explain step by step what your procedure does. Be sure to use the word `Selection` and `Iteration` to explain what it does.**
+1. 
+The procedure takes 2 intger values: max and probability. If either input is less than or equal to zero the method returns an exception. The method generates a int value between 0 and max.
 
 ## 3d
 
