@@ -162,7 +162,7 @@ Explains in detailed steps how the algorithm implemented in the identified proce
 
 **TODO: In English, explain step by step what your procedure does. Be sure to use the word `Selection` and `Iteration` to explain what it does.**
 1. 
-The procedure takes 2 intger values: max and probability. If either input is less than or equal to zero the method returns an exception. The method generates a int value between 0 and max.
+The procedure takes 2 intger values: max and probability. If either input is less than or equal to zero the method returns an exception. The method generates a int value between 0 and max. if the generated number is not between 0-100 then the gerneration iterates. if the generated number is greater than the probability value then the method returns false; else true.
 
 ## 3d
 
@@ -173,31 +173,64 @@ Provide a written response that does all three of the following:
 Describes two calls to the procedure identified in written response 3c. Each call must pass a different argument(s) that causes a different segment of code in the algorithm to execute.
 
 First call:
+```csharp
+if (input2.ToLower().Trim() == "yes")
+                {
+                    turnsleft = turnsleft - 1;
+                    bool success = ProbabilityMachine(55, 100);
 
-**TODO: Complete this section**
+
+                    if (success == true)
+                    {
+                        Console.WriteLine("You successfully made the pass to the midfeild");
+                        PassingPath.Add("Goal Kick");
+
+                        return MidFeildKickRoom(turnsleft);
+
+                    }
+                    if (success == false)
+                    {
+
+                        Console.WriteLine("You lost the ball in the midfeild. The Counter attack is over.");
+                        PassingPath.Add("Goal Kick");
+                        return GameLost();
+                    }
+```
 
 Second call:
-
-**TODO: Complete this section**
-
+```csharp
+ Console.WriteLine("You have passed the ball over the top. Will the ball be intercepted?");
+                bool Intercepted = ProbabilityMachine(90, 100);
+                if (Intercepted)
+                {
+                    Console.WriteLine("The ball has fallen to your player in front of the goal!!!\nGet ready to SCORE!");
+                    PassingPath.Add("Center defensive Mid");
+                    return Finalthird(turnsleft);
+                }
+                if (Intercepted == false ){
+                    Console.WriteLine("The defense has intercepted the ball");
+                    return GameLost();
+                }
+```
 ### 3d ii.
 
 Describes what condition(s) is being tested by each call to the procedure
 
-Condition(s) tested by the first call:
+is probabilty > 0 and is probability greater than randomly generated number between 0-100
  
 **TODO: Complete this section**
 
 Condition(s) tested by the second call:
 
-**TODO: Complete this section**
+is probabilty > 0 and is probability greater than randomly generated number between 0-100
+
 
 ### 3d iii.
 
 Result of the first call:
 
-**TODO: Complete this section**
+unknown
 
 Result of the second call:
 
-**TODO: Complete this section**
+unknown
