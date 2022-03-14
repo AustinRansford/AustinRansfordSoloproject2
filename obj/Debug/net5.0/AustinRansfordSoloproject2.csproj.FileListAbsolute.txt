@@ -1,0 +1,15 @@
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/AustinRansfordSoloproject2.csproj.AssemblyReference.cache
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/AustinRansfordSoloproject2.GeneratedMSBuildEditorConfig.editorconfig
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/AustinRansfordSoloproject2.AssemblyInfoInputs.cache
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/AustinRansfordSoloproject2.AssemblyInfo.cs
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/AustinRansfordSoloproject2.csproj.CoreCompileInputs.cache
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/bin/Debug/net5.0/AustinRansfordSoloproject2.deps.json
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/bin/Debug/net5.0/AustinRansfordSoloproject2.runtimeconfig.json
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/bin/Debug/net5.0/AustinRansfordSoloproject2.runtimeconfig.dev.json
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/bin/Debug/net5.0/AustinRansfordSoloproject2.dll
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/bin/Debug/net5.0/ref/AustinRansfordSoloproject2.dll
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/bin/Debug/net5.0/AustinRansfordSoloproject2.pdb
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/AustinRansfordSoloproject2.dll
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/ref/AustinRansfordSoloproject2.dll
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/AustinRansfordSoloproject2.pdb
+/Users/austinransford/Documents/GitHub/DataEncodinginCsharp/AustinRansfordSoloproject2/obj/Debug/net5.0/AustinRansfordSoloproject2.genruntimeconfig.cache
